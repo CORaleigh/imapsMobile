@@ -1,129 +1,89 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams, Events, PopoverController } from 'ionic-angular';
-import { EsriLoaderService } from 'angular2-esri-loader';
-import { PropertySearchProvider } from '../../providers/property-search/property-search';
-import { Geolocation } from '@ionic-native/geolocation';
+import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 
-/**
- * Generated class for the MapPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { NavController } from 'ionic-angular';
+
+import { EsriLoaderService } from 'angular2-esri-loader';
 
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html',
+  providers: [ EsriLoaderService ]
 })
-export class MapPage {
-  public mymap: any;
-    // for JSAPI 4.x you can use the "any for TS types
-  public mapView: any;//__esri.MapView;
-  public pointGraphic: any;//__esri.Graphic;
-  public markerSymbol: any;//__esri.SimpleMarkerSymbol;
-  public graphicsLayer: any;//__esri.GraphicsLayer;
-  public findTask: any;//__esri.FindTask;
-  public findParameters: any;//__esri.FindParameters;
-  public pin: string;
-  public spatialReference: any;//__esri.SpatialReference;
-  public fillSymbol: any;//__esri.SimpleFillSymbol;
-  public query: any;//__esri.Query;
-  public queryTask: any;//__esri.QueryTask;
-  @ViewChild('mapViewNode') private mapViewEl: ElementRef;
+export class MapPage implements OnInit{
 
-  maploaded: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private esriLoader: EsriLoaderService, private events: Events, public popoverCtrl: PopoverController, private propertySearch: PropertySearchProvider, public geolocation: Geolocation) {
-    if(navParams.data.data) {
-      console.log(navParams.data.data.account);
-      this.pin = navParams.data.data.account.pin;
-    }
-    events.subscribe('change-tab-info', (tab, data) => {
-      console.log(navParams.data.data.account);
-      this.pin = navParams.data.data.account.pin;
-      this.findProperty(this.pin);
-    });    
-  }
+  @ViewChild('map') mapEl: ElementRef;
 
+  constructor(public navCtrl: NavController, private esriLoader: EsriLoaderService) { }
 
-  public findProperty(pin: string) {
-    this.findParameters.layerIds = [0, 1];
-    this.findParameters.searchFields = ['PIN_NUM'];
-    this.findParameters.searchText = pin;
-    this.findParameters.returnGeometry = true;
-    this.findParameters.outSpatialReference = this.spatialReference;
-    console.log(this.spatialReference);
-  
-    this.findTask.url = 'https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer';
-    this.findTask.execute(this.findParameters).then(response => {
-      if (response.results.length > 0) {
-        response.results[0].feature.symbol = this.fillSymbol;
-        this.mapView.graphics.removeAll();
-        this.mapView.graphics.add(response.results[0].feature);
-        this.mapView.goTo(response.results[0].feature);
-      }
-    });
-  }
+  ngOnInit() {
 
-  public findPropertyPin(point) {
-    this.queryTask.url = 'https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/0';
-    this.query.geometry = point;
-    this.query.outSpatialReference = this.spatialReference;
-    this.query.outFields = ['PIN_NUM'];
-    this.query.where = '1=1';
-    this.queryTask.execute(this.query).then(response => {
-      if (response.features.length > 0) {
-        this.findPropertyInfo(response.features[0].attributes.PIN_NUM);
-      } else {
-        this.queryTask.url = 'https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/1';    
-        this.queryTask.execute(this.query).then(response => {
-          if (response.features.length > 0) {
-            this.findPropertyInfo(response.features[0].attributes.PIN_NUM);
-          }
-        })
-      }
-    });
-  }
+    let latitude: number = 0, longitude: number = 0, map: any = null, MapPoint: any = null;
 
-  public findPropertyInfo(pin: string) {
-    this.propertySearch.getPropertyInfo(pin, 'pin').subscribe(results => {
-      let accounts = results.Accounts;
-      // this.navCtrl.parent.accounts = this.accounts;
-      // var t:Tabs = this.navCtrl.parent;
-      // t.select(1);    
-      if (accounts.length > 1) {
-        this.events.publish('change-tab', 1, {accounts: accounts, fields: results.Fields});
-      }  else if (accounts.length === 1) {
-        this.events.publish('change-tab-info', 2, {account: accounts[0], fields: results.Fields});
-      }
-    });
-  }
-  @ViewChild('mapViewNode') mapEl: ElementRef;
-  public ngOnInit() {
-    return this.buildMap();
-    
-  }
+    const options = {
+      enableHighAccuracy: true, // use any allowed location provider
+      timeout: 60000            // it can take quite a while for a cold GPS to warm up
+    };
 
-  buildMap() {
-        return this.esriLoader.load({
-      url: 'https://js.arcgis.com/3.20/'
+    // Demonstrates starting up geolocation before loading ArcGIS JS API
+    // You can also wait until after the map has loaded. It all depends
+    // on your requirements.
+
+    let watchId = navigator.geolocation.watchPosition( position=> {
+
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+
+        centerMap(latitude, longitude);
+
+      }, error => {
+
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            console.error("User denied the request for Geolocation.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            console.error("Location information is unavailable.");
+            break;
+          case error.TIMEOUT:
+            console.error("The request to get user location timed out.");
+            alert("Unable to start geolocation. Check application settings.");
+            break;
+        }
+      }, options
+    );
+
+    this.esriLoader.load({
+      url: 'https://js.arcgis.com/3.21/'
     }).then(() => {
-      this.esriLoader.loadModules(['esri/map'
 
-      ]).then(([Map
-
-      ]) => {
-          let map = new Map(this.mapEl.nativeElement, {
-          center: [-118, 34.5],
-          zoom: 8,
-          basemap: "gray-vector"
+      this.esriLoader.loadModules(['esri/map', 'esri/arcgis/utils','esri/geometry/Point']).then(([Map, arcgisUtils, Point]) => {
+        // create the map at the DOM element in this component
+        // map = new Map(this.mapEl.nativeElement, {
+        //   center: [-118, 34.5],
+        //   zoom: 8,
+        //   basemap: "gray-vector"
+        // });
+        arcgisUtils.createMap("dc14a00c3e4d474c9338f6b1e03234cd", this.mapEl.nativeElement).then(function (response) {
+            map = response.map;
         });
+
+        MapPoint = Point;
+
+        // Shut off geolocation when user zooms.
+        // map.on("zoom-end",function(){
+        //   navigator.geolocation.clearWatch(watchId);
+        //   console.log("Geolocation stopped.");
+        // });
+
       });
-  });
+    });
+
+    // Keep centering the map until we shut off geolocation
+    function centerMap(lat, lon) {
+      if(map != null) {
+        console.log("Centering map: " + lat + ", " + lon);
+        map.centerAt(MapPoint(lon, lat));
+      }
+    }
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MapPage');
-  }
-
-
 }
