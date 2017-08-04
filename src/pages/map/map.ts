@@ -18,17 +18,17 @@ import { Geolocation } from '@ionic-native/geolocation';
 export class MapPage {
   public mymap: any;
     // for JSAPI 4.x you can use the "any for TS types
-  public mapView: __esri.MapView;
-  public pointGraphic: __esri.Graphic;
-  public markerSymbol: __esri.SimpleMarkerSymbol;
-  public graphicsLayer: __esri.GraphicsLayer;
-  public findTask: __esri.FindTask;
-  public findParameters: __esri.FindParameters;
+  public mapView: any;//__esri.MapView;
+  public pointGraphic: any;//__esri.Graphic;
+  public markerSymbol: any;//__esri.SimpleMarkerSymbol;
+  public graphicsLayer: any;//__esri.GraphicsLayer;
+  public findTask: any;//__esri.FindTask;
+  public findParameters: any;//__esri.FindParameters;
   public pin: string;
-  public spatialReference: __esri.SpatialReference;
-  public fillSymbol: __esri.SimpleFillSymbol;
-  public query: __esri.Query;
-  public queryTask: __esri.QueryTask;
+  public spatialReference: any;//__esri.SpatialReference;
+  public fillSymbol: any;//__esri.SimpleFillSymbol;
+  public query: any;//__esri.Query;
+  public queryTask: any;//__esri.QueryTask;
   @ViewChild('mapViewNode') private mapViewEl: ElementRef;
 
   maploaded: boolean = false;
@@ -97,121 +97,28 @@ export class MapPage {
       }
     });
   }
-
+  @ViewChild('mapViewNode') mapEl: ElementRef;
   public ngOnInit() {
     return this.buildMap();
+    
   }
 
   buildMap() {
         return this.esriLoader.load({
-      url: 'https://js.arcgis.com/4.4/'
+      url: 'https://js.arcgis.com/3.20/'
     }).then(() => {
-      this.esriLoader.loadModules([
-        'esri/WebMap',
-        'esri/views/MapView',
-        'esri/geometry/Point',
-        'esri/symbols/SimpleMarkerSymbol',
-        'esri/Graphic',
-        'esri/layers/GraphicsLayer',
-        'esri/tasks/FindTask',
-        'esri/tasks/support/FindParameters',
-        'esri/tasks/QueryTask',
-        'esri/tasks/support/Query',        
-        'esri/geometry/SpatialReference',
-        'esri/symbols/SimpleFillSymbol',
-        'esri/widgets/BasemapGallery',
-        'esri/widgets/LayerList',
-        "esri/widgets/Expand",
-        "esri/widgets/Track",
-        "esri/widgets/Compass"
-      ]).then(([
-        WebMap,
-        MapView,
-        Point,
-        SimpleMarkerSymbol,
-        Graphic,
-        GraphicsLayer,
-        FindTask,
-        FindParameters,
-        QueryTask,
-        Query,
-        SpatialReference,
-        SimpleFillSymbol,
-        BasemapGallery,
-        LayerList,
-        Expand,
-        Track,
-        Compass
+      this.esriLoader.loadModules(['esri/map'
+
+      ]).then(([Map
+
       ]) => {
-        const mapProperties: __esri.MapProperties = {
-          basemap: 'gray-vector'
-        };
-
-        const map = new WebMap({
-          portalItem: { // autocasts as new PortalItem()
-            id: "dc14a00c3e4d474c9338f6b1e03234cd"
-          }
-        });
-        // const mapViewProperties: __esri.MapViewProperties = {
-        //   container: this.mapViewEl.nativeElement,
-        //   center: [-78.65, 35.8],
-        //   zoom: 12,
-        //   map
-        // };
-        
-        let page = this;
-        this.mymap = map;
-        this.mapView = new MapView({map: map, container: this.mapViewEl.nativeElement});
-        this.spatialReference = new SpatialReference(3857);
-        this.findParameters = new FindParameters();
-        this.findTask = new FindTask();
-        this.fillSymbol = new SimpleFillSymbol();
-        this.query = new Query();
-        this.queryTask = new QueryTask();
-        if (this.pin) {
-          this.findProperty(this.pin);
-        }
-        let gallery = new BasemapGallery({
-          container: document.createElement("div"),
-          view: this.mapView
-        });
-        let layerList = new LayerList({
-          container: document.createElement("div"),
-          view: this.mapView
-        })
-        let layerListExpand = new Expand({
-          expandIconClass: "esri-icon-layers",  // see https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/
-          // expandTooltip: "Expand LayerList", // optional, defaults to "Expand" for English locale
-          view: this.mapView,
-          content: layerList.domNode
-        });
-        this.mapView.ui.add(layerListExpand, "top-right");
-        let bgExpand = new Expand({
-          expandIconClass: "esri-icon-basemap",  // see https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/
-          // expandTooltip: "Expand LayerList", // optional, defaults to "Expand" for English locale
-          view: this.mapView,
-          content: gallery.domNode
-        });
-        this.mapView.ui.add(bgExpand, "top-right");
-        let trackWidget = new Track({
-          view: this.mapView
-        });
-
-        this.mapView.ui.add(trackWidget, "top-left");
-        let compassWidget = new Compass({
-          view: this.mapView
-        });
-
-        this.mapView.ui.add(compassWidget, "top-left");
-        //this.mapView.ui.add(layerList, {position: 'top-right'});
-        
-       // this.maploaded = this.esriLoader.isLoaded();
-      //  console.log(this.maploaded);
-        this.mapView.on('hold', function (evt) {
-          page.findPropertyPin(evt.mapPoint);
+          let map = new Map(this.mapEl.nativeElement, {
+          center: [-118, 34.5],
+          zoom: 8,
+          basemap: "gray-vector"
         });
       });
-    });
+  });
   }
 
   ionViewDidLoad() {
