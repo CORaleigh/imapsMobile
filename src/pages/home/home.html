@@ -1,14 +1,17 @@
-<ion-header>
+<!--<ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      iMAPS Mobile
     </ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header>-->
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  {{accounts | json}}
+    <ion-tabs>
+      <ion-tab tabIcon="search" [root]="searchTab"></ion-tab>
+      <ion-tab enabled="false" tabIcon="list" [root]="resultsTab" [rootParams]="tabParams"></ion-tab>
+      <ion-tab enabled="false" tabIcon="information-circle" [root]="infoTab" [rootParams]="tabParams"></ion-tab>            
+      <ion-tab tabIcon="map" [root]="mapTab" [rootParams]="tabParams"></ion-tab>
+    </ion-tabs>`
 </ion-content>

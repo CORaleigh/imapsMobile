@@ -1,0 +1,21 @@
+page-info {
+
+}
+ion-slides {
+    height: 300px;
+}
+
+ion-slide {
+    -webkit-box-align: initial !important;
+    -webkit-align-items: initial !important;
+    -ms-flex-align: initial !important;
+    align-items: initial !important;
+    -webkit-box-pack: initial !important;
+    -webkit-justify-content: initial !important;
+    -ms-flex-pack: initial !important;
+    justify-content: initial !important;
+}
+
+.swiper-slide img {
+    height: 270px;
+}

@@ -1,0 +1,63 @@
+<!--
+  Generated template for the SearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!--<ion-header>
+
+  <ion-navbar>
+    <ion-title>search</ion-title>
+  </ion-navbar>
+
+</ion-header>-->
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      iMAPS Mobile
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+
+  <ion-item>
+    <ion-label floating>Address, PIN, REID, Owner...</ion-label>
+    <ion-input [formControl]="searchControl" type="text" value="" [ngModel]="searchInput" type="text"></ion-input>
+  </ion-item>
+  {{searchInput}}
+
+<ion-list>
+  <div *ngIf="addresses.length > 0">
+    <ion-list-header>
+      Address
+    </ion-list-header>
+    <ion-item *ngFor="let address of addresses" (click)="searchProperty(address, 'address')">{{address}}</ion-item>
+  </div>
+  <div *ngIf="owners.length > 0">  
+    <ion-list-header>
+      Owner
+    </ion-list-header>
+    <ion-item *ngFor="let owner of owners" (click)="searchProperty(owner, 'owner')">{{owner}}</ion-item>
+  </div>
+  <div *ngIf="pins.length > 0">
+    <ion-list-header>
+      PIN
+    </ion-list-header>
+    <ion-item *ngFor="let pin of pins" (click)="searchProperty(pin, 'pin')">{{pin}}</ion-item>
+  </div>
+  <div *ngIf="reids.length > 0">  
+    <ion-list-header>
+      REID
+    </ion-list-header>
+    <ion-item *ngFor="let reid of reids" (click)="searchProperty(reid, 'reid')">{{reid}}</ion-item>
+  </div>
+  <div *ngIf="streets.length > 0">  
+    <ion-list-header>
+      Street
+    </ion-list-header>
+    <ion-item *ngFor="let street of streets" (click)="searchProperty(street, 'street name')">{{street}}</ion-item>
+  </div>  
+</ion-list>
+</ion-content>

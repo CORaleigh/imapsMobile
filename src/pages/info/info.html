@@ -1,0 +1,35 @@
+<!--
+  Generated template for the InfoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>info</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-slides pager>
+
+    <ion-slide *ngFor="let photo of photos">
+      <img src="http://services.wakegov.com/realestate/photos/mvideo/{{photo.imageDir}}/{{photo.imageName}}">
+    </ion-slide>
+
+
+  </ion-slides>
+  <ion-list>
+    <ion-item *ngFor="let field of fields">
+      <h2>{{field.alias}}</h2>
+      <p>{{account[field.field]}}</p>
+    </ion-item>
+  </ion-list>
+  <div *ngFor="let deed of deeds">
+    <a *ngIf="deed.deedDocNum != 0" ion-button href="http://services.wakegov.com/booksweb/pdfview.aspx?docid={{deed.deedDocNum}}&amp;RecordDate=" target="_blank">View Deed</a>
+    <a *ngIf="deed.bomDocNum != 0" ion-button href="http://services.wakegov.com/booksweb/pdfview.aspx?docid={{deed.bomDocNum}}&amp;RecordDate=" target="_blank">View Book of Maps</a>
+  </div>
+</ion-content>
