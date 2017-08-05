@@ -173,7 +173,7 @@ export class MapPage implements OnInit {
         this.query = new Query();
         this.queryTask = new QueryTask('https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/0');
         this.layerList = LayerList;
-        if (this.pin) {
+        if (this.pin && this.map) {
           this.findProperty(this.pin, this.findParameters, this.find, this.fillSymbol);
         }
         arcgisUtils.createMap("dc14a00c3e4d474c9338f6b1e03234cd", this.mapEl.nativeElement, {
