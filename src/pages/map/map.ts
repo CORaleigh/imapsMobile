@@ -169,25 +169,25 @@ export class MapPage implements OnInit {
           });
           page.map = response.map;
           page.agolPopupClickHandle = response.clickEventHandle;
-          page.agolPopupclickEventListener = response.clickEventListener;          
+          page.agolPopupclickEventListener = response.clickEventListener;
           if (page.pin) {
             page.findProperty(page.pin, page.findParameters, page.find, page.fillSymbol);
           }
           page.loaded = true;
           let timeout = null;
           page.map.on('mouse-down', (evt) => {
-                //connect editor
-          if (page.agolPopupClickHandle) {
+            //connect editor
+            if (page.agolPopupClickHandle) {
               page.agolPopupClickHandle.remove();
               page.agolPopupClickHandle = null;
-          }
+            }
             timeout = setTimeout(() => {
               page.findPropertyPin(evt.mapPoint);
             }, 1000);
           });
           page.map.on('mouse-up', (evt) => {
             if (!page.agolPopupClickHandle) {
-                page.agolPopupClickHandle = page.map.on("click", page.agolPopupclickEventListener);
+              page.agolPopupClickHandle = page.map.on("click", page.agolPopupclickEventListener);
             }
             if (timeout) {
               clearTimeout(timeout);
@@ -198,8 +198,3 @@ export class MapPage implements OnInit {
     });
   }
 }
-
-
-
-
-
