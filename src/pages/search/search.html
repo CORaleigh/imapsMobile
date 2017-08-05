@@ -8,7 +8,7 @@
 <ion-content padding>
   <ion-item>
     <ion-label floating>Address, PIN, REID, Owner...</ion-label>
-    <ion-input [formControl]="searchControl" type="text" value="" [ngModel]="searchInput" type="text"></ion-input>
+    <ion-input [formControl]="searchControl" type="text" value="" [ngModel]="searchInput" type="text" clearInput clearOnEdit></ion-input>
   </ion-item>
   {{searchInput}}
   <ion-list>
