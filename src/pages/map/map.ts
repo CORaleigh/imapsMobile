@@ -39,6 +39,8 @@ export class MapPage implements OnInit {
   spatialReference: any;
   agolPopupClickHandle: any;
   agolPopupclickEventListener: any;
+  screenUtils: any;
+  screenPoint: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private esriLoader: EsriLoaderService, private events: Events, private propertySearch: PropertySearchProvider) {
     if (navParams.data.data) {
       this.pin = navParams.data.data.account.pin;
@@ -85,7 +87,7 @@ export class MapPage implements OnInit {
         results[0].feature.symbol = fillSymbol;
         this.map.graphics.clear();
         this.map.graphics.add(results[0].feature);
-        this.map.setExtent(results[0].feature.geometry.getExtent(), true);
+        this.map.setExtent(results[0].feature.geometry.getExtent().expand(2), true);
       }
     });
   }
@@ -110,6 +112,17 @@ export class MapPage implements OnInit {
 
   }
 
+  mapPress(evt) {
+    this.screenPoint.x = evt.center.x;
+    this.screenPoint.y = evt.center.y;
+    let point = this.screenUtils.toMapGeometry(this.map.extent, this.map.width, this.map.height, this.screenPoint);
+    if (this.agolPopupClickHandle) {
+      this.agolPopupClickHandle.remove();
+      this.agolPopupClickHandle = null;
+    }
+    this.findPropertyPin(point);
+  }
+
   ngOnInit() {
     this.esriLoader.load({
       url: 'https://js.arcgis.com/3.21/'
@@ -124,9 +137,14 @@ export class MapPage implements OnInit {
         'esri/tasks/FindTask',
         'esri/tasks/FindParameters',
         'esri/symbols/SimpleFillSymbol',
-        'esri/SpatialReference'
-      ]).then(([Map, arcgisUtils, Point, LayerList, Query, QueryTask, FindTask, FindParameters, SimpleFillSymbol, SpatialReference]) => {
+        'esri/SpatialReference',
+        'esri/dijit/LocateButton',
+        "esri/geometry/screenUtils",
+        "esri/geometry/ScreenPoint"
+      ]).then(([Map, arcgisUtils, Point, LayerList, Query, QueryTask, FindTask, FindParameters, SimpleFillSymbol, SpatialReference, LocateButton, screenUtils, ScreenPoint]) => {
         let page = this;
+        this.screenUtils = screenUtils;
+        this.screenPoint = new ScreenPoint();
         this.spatialReference = new SpatialReference(3857);
         this.findParameters = new FindParameters();
         this.find = new FindTask('https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer');
@@ -175,16 +193,23 @@ export class MapPage implements OnInit {
           }
           page.loaded = true;
           let timeout = null;
-          page.map.on('mouse-down', (evt) => {
-            //connect editor
-            if (page.agolPopupClickHandle) {
-              page.agolPopupClickHandle.remove();
-              page.agolPopupClickHandle = null;
-            }
-            timeout = setTimeout(() => {
-              page.findPropertyPin(evt.mapPoint);
-            }, 1000);
-          });
+          var geoLocate = new LocateButton({
+            map: page.map,
+            highlightLocation: true,
+            useTracking: true
+            }, "LocateButton"
+          );
+          geoLocate.startup();
+          // page.map.on('mouse-down', (evt) => {
+          //   //connect editor
+          //   if (page.agolPopupClickHandle) {
+          //     page.agolPopupClickHandle.remove();
+          //     page.agolPopupClickHandle = null;
+          //   }
+          //   timeout = setTimeout(() => {
+          //     page.findPropertyPin(evt.mapPoint);
+          //   }, 1000);
+          // });
           page.map.on('mouse-up', (evt) => {
             if (!page.agolPopupClickHandle) {
               page.agolPopupClickHandle = page.map.on("click", page.agolPopupclickEventListener);

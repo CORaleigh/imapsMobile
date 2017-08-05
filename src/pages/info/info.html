@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>info</ion-title>
+    <ion-title>{{account.siteAddress}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -25,7 +25,7 @@
   <ion-list>
     <ion-item *ngFor="let field of fields">
       <h2>{{field.alias}}</h2>
-      <p>{{account[field.field]}}</p>
+      <p>{{account[field.field]| currency:'USD':false}}</p>
     </ion-item>
   </ion-list>
   <div *ngFor="let deed of deeds">

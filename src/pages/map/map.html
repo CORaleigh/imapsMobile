@@ -9,5 +9,5 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <div ion-fixed id="map" #map ></div>
+  <div ion-fixed id="map" #map (press)="mapPress($event)" ><div id="LocateButton"></div></div>
 </ion-content>
