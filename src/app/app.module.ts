@@ -14,7 +14,6 @@ import { InfoPage } from '../pages/info/info';
 import { ResultsPage } from '../pages/results/results';
 import { SearchProvider } from '../providers/search/search';
 import { PropertySearchProvider } from '../providers/property-search/property-search';
-import { MapMenuPage } from '../pages/map-menu/map-menu';
 import { EsriLoaderService } from 'angular2-esri-loader';
 import { LayerListPage } from '../pages/layer-list/layer-list';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -29,7 +28,6 @@ import { LayerFilterPipe } from '../pipes/layer-filter/layer-filter';
     MapPage,
     InfoPage,
     ResultsPage,
-    MapMenuPage,
     LayerListPage,
     LayerPage,
     LayerFilterPipe
@@ -47,7 +45,6 @@ import { LayerFilterPipe } from '../pipes/layer-filter/layer-filter';
     MapPage,
     InfoPage,
     ResultsPage,
-    MapMenuPage,
     LayerListPage,
     LayerPage
   ],
