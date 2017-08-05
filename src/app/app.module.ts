@@ -12,7 +12,6 @@ import { SearchPage } from '../pages/search/search';
 import { MapPage } from '../pages/map/map';
 import { InfoPage } from '../pages/info/info';
 import { ResultsPage } from '../pages/results/results';
-import { SearchProvider } from '../providers/search/search';
 import { PropertySearchProvider } from '../providers/property-search/property-search';
 import { EsriLoaderService } from 'angular2-esri-loader';
 import { LayerListPage } from '../pages/layer-list/layer-list';
@@ -52,7 +51,6 @@ import { LayerFilterPipe } from '../pipes/layer-filter/layer-filter';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SearchProvider,
     PropertySearchProvider,
     EsriLoaderService,
     Geolocation
