@@ -49,6 +49,17 @@ export class MapPage implements OnInit {
           });
           page.map = response.map;
           page.loaded = true;
+          let timeout = null;
+          page.map.on('mouse-down', (evt) => {
+            timeout = setTimeout(() => {
+              console.log(evt);
+            }, 1000);
+          });
+          page.map.on('mouse-up', (evt) => {
+            if (timeout) {
+              clearTimeout(timeout);
+            }
+          });
         });
       });
     });
