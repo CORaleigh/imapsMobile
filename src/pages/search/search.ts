@@ -32,7 +32,7 @@ export class SearchPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private propertySearch: PropertySearchProvider, private events: Events) {}
   ngOnInit() {
     this.searchControl.valueChanges
-      .debounceTime(1000)
+      .debounceTime(300)
       .subscribe(newValue => {
         if (newValue) {
           this.getData(newValue);
