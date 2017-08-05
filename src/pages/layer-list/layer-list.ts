@@ -16,14 +16,6 @@ import {
 import {
   LayerFilterPipe
 } from '../../pipes/layer-filter/layer-filter';
-
-/**
- * Generated class for the LayerListPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
 @Component({
   selector: 'page-layer-list',
   templateUrl: 'layer-list.html'
