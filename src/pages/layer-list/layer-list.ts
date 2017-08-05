@@ -21,16 +21,14 @@ import {
   templateUrl: 'layer-list.html'
 })
 export class LayerListPage implements OnInit {
-  layerList: any;
   layers: Array < any > = [];
   basemapLayerIds: Array < string > ;
   ngOnInit() {
-    this.basemapLayerIds = this.navParams.data.map.basemapLayerIds;
     this.navParams.data.map.layerIds.forEach(layerId => {
-      let layer = this.navParams.data.map.getLayer(layerId);
-      console.log(this.basemapLayerIds);
-      console.log(layer);
-      this.layers.push(layer);
+      if (this.navParams.data.opLayers.indexOf(layerId) > -1) {
+        let layer = this.navParams.data.map.getLayer(layerId);
+        this.layers.push(layer);
+      }
     });
   }
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtl: ModalController) {}

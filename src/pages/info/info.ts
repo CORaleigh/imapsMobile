@@ -1,14 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,  Events } from 'ionic-angular';
 import { PropertySearchProvider } from '../../providers/property-search/property-search';
-
-/**
- * Generated class for the InfoPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
 @Component({
   selector: 'page-info',
   templateUrl: 'info.html',

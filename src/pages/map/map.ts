@@ -21,13 +21,14 @@ import {
 export class MapPage implements OnInit {
   @ViewChild('map') mapEl: ElementRef;
   map: any;
+  opLayers: Array<string> = [];
   layerList: any;
   loaded: boolean = false;
   constructor(public navCtrl: NavController, private esriLoader: EsriLoaderService) {}
   goToLayerList() {
     this.navCtrl.push(LayerListPage, {
       map: this.map,
-      LayerList: this.layerList
+      opLayers: this.opLayers
     });
   }
   ngOnInit() {
@@ -42,6 +43,10 @@ export class MapPage implements OnInit {
             slider: false
           }
         }).then(function (response) {
+          console.log(response);
+          response.itemInfo.itemData.operationalLayers.forEach(opLayer => {
+            page.opLayers.push(opLayer.id);
+          });
           page.map = response.map;
           page.loaded = true;
         });
