@@ -1,6 +1,6 @@
 <ion-content padding>
   {{accounts | json}}
-  <ion-tabs>
+  <ion-tabs  color="primary">
     <ion-tab tabIcon="search" [root]="searchTab"></ion-tab>
     <ion-tab enabled="false" tabIcon="list" [root]="resultsTab" [rootParams]="tabParams"></ion-tab>
     <ion-tab enabled="false" tabIcon="information-circle" [root]="infoTab" [rootParams]="tabParams"></ion-tab>
