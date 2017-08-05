@@ -17,6 +17,7 @@ import { EsriLoaderService } from 'angular2-esri-loader';
 import { LayerListPage } from '../pages/layer-list/layer-list';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LayerPage } from '../pages/layer/layer';
+import { BasemapPage } from '../pages/basemap/basemap';
 import { LayerFilterPipe } from '../pipes/layer-filter/layer-filter';
 
 @NgModule({
@@ -29,7 +30,8 @@ import { LayerFilterPipe } from '../pipes/layer-filter/layer-filter';
     ResultsPage,
     LayerListPage,
     LayerPage,
-    LayerFilterPipe
+    LayerFilterPipe,
+    BasemapPage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import { LayerFilterPipe } from '../pipes/layer-filter/layer-filter';
     InfoPage,
     ResultsPage,
     LayerListPage,
-    LayerPage
+    LayerPage,
+    BasemapPage
   ],
   providers: [
     StatusBar,

@@ -16,6 +16,9 @@ import {
   LayerListPage
 } from '../layer-list/layer-list';
 import {
+  BasemapPage
+} from '../basemap/basemap';
+import {
   PropertySearchProvider
 } from '../../providers/property-search/property-search';
 
@@ -41,6 +44,7 @@ export class MapPage implements OnInit {
   agolPopupclickEventListener: any;
   screenUtils: any;
   screenPoint: any;
+  basemapGallery: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private esriLoader: EsriLoaderService, private events: Events, private propertySearch: PropertySearchProvider) {
     if (navParams.data.data) {
       this.pin = navParams.data.data.account.pin;
@@ -58,6 +62,11 @@ export class MapPage implements OnInit {
       opLayers: this.opLayers
     });
   }
+  goToBasemap() {
+    this.navCtrl.push(BasemapPage, {
+      map: this.map
+    });
+  }  
   findPropertyInfo(pin: string) {
     this.propertySearch.getPropertyInfo(pin, 'pin').subscribe(results => {
       let accounts = results.Accounts;
@@ -140,13 +149,15 @@ export class MapPage implements OnInit {
         'esri/SpatialReference',
         'esri/dijit/LocateButton',
         "esri/geometry/screenUtils",
-        "esri/geometry/ScreenPoint"
-      ]).then(([Map, arcgisUtils, Point, LayerList, Query, QueryTask, FindTask, FindParameters, SimpleFillSymbol, SpatialReference, LocateButton, screenUtils, ScreenPoint]) => {
+        "esri/geometry/ScreenPoint",
+        'esri/dijit/BasemapGallery'
+      ]).then(([Map, arcgisUtils, Point, LayerList, Query, QueryTask, FindTask, FindParameters, SimpleFillSymbol, SpatialReference, LocateButton, screenUtils, ScreenPoint, BasemapGallery]) => {
         let page = this;
         this.screenUtils = screenUtils;
         this.screenPoint = new ScreenPoint();
         this.spatialReference = new SpatialReference(3857);
         this.findParameters = new FindParameters();
+        
         this.find = new FindTask('https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer');
         this.fillSymbol = new SimpleFillSymbol({
           "color": [
@@ -200,6 +211,7 @@ export class MapPage implements OnInit {
             }, "LocateButton"
           );
           geoLocate.startup();
+
           // page.map.on('mouse-down', (evt) => {
           //   //connect editor
           //   if (page.agolPopupClickHandle) {
