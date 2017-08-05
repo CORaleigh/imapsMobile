@@ -207,7 +207,8 @@ export class MapPage implements OnInit {
           var geoLocate = new LocateButton({
             map: page.map,
             highlightLocation: true,
-            useTracking: true
+            useTracking: true,
+            scale: 2000
             }, "LocateButton"
           );
           geoLocate.on('load', () => {
