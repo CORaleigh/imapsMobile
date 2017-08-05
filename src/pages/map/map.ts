@@ -210,6 +210,10 @@ export class MapPage implements OnInit {
             useTracking: true
             }, "LocateButton"
           );
+          geoLocate.on('load', () => {
+            console.log('geolocate loaded');
+            geoLocate.show();
+          });          
           geoLocate.startup();
 
           // page.map.on('mouse-down', (evt) => {
