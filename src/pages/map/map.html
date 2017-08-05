@@ -1,9 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Map</ion-title>
+    <ion-title>{{map.loaded}}</ion-title>
+    <ion-buttons end>
+      <button [disabled]="!loaded" ion-button icon-only (click)="goToLayerList()">
+        <ion-icon name="logo-buffer"></ion-icon>
+      </button>
+    </ion-buttons>      
   </ion-navbar>
 </ion-header>
-
 <ion-content>
   <div ion-fixed id="map" #map ></div>
 </ion-content>

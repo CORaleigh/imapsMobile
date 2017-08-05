@@ -1,17 +1,9 @@
-<!--<ion-header>
-  <ion-navbar>
-    <ion-title>
-      iMAPS Mobile
-    </ion-title>
-  </ion-navbar>
-</ion-header>-->
-
 <ion-content padding>
   {{accounts | json}}
-    <ion-tabs>
-      <ion-tab tabIcon="search" [root]="searchTab"></ion-tab>
-      <ion-tab enabled="false" tabIcon="list" [root]="resultsTab" [rootParams]="tabParams"></ion-tab>
-      <ion-tab enabled="false" tabIcon="information-circle" [root]="infoTab" [rootParams]="tabParams"></ion-tab>            
-      <ion-tab tabIcon="map" [root]="mapTab" [rootParams]="tabParams"></ion-tab>
-    </ion-tabs>`
+  <ion-tabs>
+    <ion-tab tabIcon="search" [root]="searchTab"></ion-tab>
+    <ion-tab enabled="false" tabIcon="list" [root]="resultsTab" [rootParams]="tabParams"></ion-tab>
+    <ion-tab enabled="false" tabIcon="information-circle" [root]="infoTab" [rootParams]="tabParams"></ion-tab>
+    <ion-tab tabIcon="map" [root]="mapTab" [rootParams]="tabParams"></ion-tab>
+  </ion-tabs>`
 </ion-content>

@@ -16,9 +16,10 @@ import { SearchProvider } from '../providers/search/search';
 import { PropertySearchProvider } from '../providers/property-search/property-search';
 import { MapMenuPage } from '../pages/map-menu/map-menu';
 import { EsriLoaderService } from 'angular2-esri-loader';
-
+import { LayerListPage } from '../pages/layer-list/layer-list';
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { LayerPage } from '../pages/layer/layer';
+import { LayerFilterPipe } from '../pipes/layer-filter/layer-filter';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,10 @@ import { Geolocation } from '@ionic-native/geolocation';
     MapPage,
     InfoPage,
     ResultsPage,
-    MapMenuPage
+    MapMenuPage,
+    LayerListPage,
+    LayerPage,
+    LayerFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     MapPage,
     InfoPage,
     ResultsPage,
-    MapMenuPage
+    MapMenuPage,
+    LayerListPage,
+    LayerPage
   ],
   providers: [
     StatusBar,

@@ -1,13 +1,11 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, Events } from 'ionic-angular';
-
-/**
- * Generated class for the ResultsPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
+import {
+  Component
+} from '@angular/core';
+import {
+  NavController,
+  NavParams,
+  Events
+} from 'ionic-angular';
 @Component({
   selector: 'page-results',
   templateUrl: 'results.html',
@@ -23,11 +21,12 @@ export class ResultsPage {
       this.fields = data.fields;
     });
   }
-
   goToInfo(account: any) {
-    this.events.publish('change-tab-info', 2, {account: account, fields: this.fields});
+    this.events.publish('change-tab-info', 2, {
+      account: account,
+      fields: this.fields
+    });
   }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad ResultsPage');
   }

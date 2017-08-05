@@ -1,0 +1,21 @@
+<!--
+  Generated template for the LayerListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Layers</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let layer of layers">
+      <ion-label><button no-lines ion-item (click)="showLayerInfo(layer)">{{layer.arcgisProps.title}}</button></ion-label>
+      <ion-toggle item-left checked="{{layer.visible}}" [(ngModel)]="layer.visible" (ngModelChange)="layerVisibilityChanged($event, layer)"></ion-toggle>
+      <ion-icon item-right name="ios-arrow-forward" showWhen="android, windows"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <div id="layerList"></div>
+</ion-content>
