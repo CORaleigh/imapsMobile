@@ -4,8 +4,12 @@ import {
 import {
   NavController,
   NavParams,
-  ViewController
+  ViewController,
+  ModalController
 } from 'ionic-angular';
+import {
+  LegendPage
+} from '../legend/legend';
 
 /**
  * Generated class for the LayerPage page.
@@ -21,7 +25,7 @@ import {
 export class LayerPage {
   layer;
   opacity;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public modalCtl: ModalController) {
     this.layer = this.navParams.data;
     console.log(this.layer);
     this.opacity = this.layer.opacity * 100;
@@ -48,7 +52,11 @@ export class LayerPage {
         layer.visibleLayers.push(-1);
       }
     }
-    console.log(layer.visibleLayers)
     layer.setVisibleLayers(layer.visibleLayers);
+  }
+
+    showLegend(info, layer) {
+    let modal = this.modalCtl.create(LegendPage, {url: layer.url + '/legend', id: info.id});
+    modal.present();
   }
 }

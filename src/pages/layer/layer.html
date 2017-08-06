@@ -24,10 +24,17 @@
       <ion-icon range-right name="sunny"></ion-icon>
     </ion-range>
   </ion-item>
-  <ion-list>
+  <ion-list *ngIf="layer.layerInfos">
     <ion-item *ngFor="let info of layer.layerInfos">
-      <ion-label>{{info.name}}</ion-label>
+      <ion-label><button no-lines ion-item (click)="showLegend(info, layer)">{{info.name}}</button></ion-label>
+
       <ion-toggle item-left checked="{{info.defaultVisibility}}" [(ngModel)]="info.defaultVisibility" (ngModelChange)="subLayerVisibilityChanged($event, info.id, layer)">></ion-toggle>
     </ion-item>
   </ion-list>
+  <ion-list *ngIf="layer.renderer">
+    <ion-item *ngFor="let info of layer.renderer.infos">
+      <ion-label>{{info.value}}</ion-label>
+      <img item-start [src]="info.symbol.url" [alt]="info.value"/>
+    </ion-item>
+  </ion-list>  
 </ion-content>

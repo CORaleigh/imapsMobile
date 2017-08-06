@@ -42,4 +42,9 @@ export class PropertySearchProvider {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 
   }
+  getLayerLegend(url: string): Observable < any > {
+    return this.http.get(url + '?f=json')
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
 }
