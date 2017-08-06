@@ -187,7 +187,7 @@ export class MapPage implements OnInit {
         if (this.pin && this.map) {
           this.findProperty(this.pin, this.findParameters, this.find, this.fillSymbol);
         }
-        arcgisUtils.createMap("dc14a00c3e4d474c9338f6b1e03234cd", this.mapEl.nativeElement, {
+        arcgisUtils.createMap("ae9528a8e6e64994b4596072dcc476b8", this.mapEl.nativeElement, {
           mapOptions: {
             slider: false
           }
