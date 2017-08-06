@@ -19,6 +19,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { LayerPage } from '../pages/layer/layer';
 import { BasemapPage } from '../pages/basemap/basemap';
 import { LayerFilterPipe } from '../pipes/layer-filter/layer-filter';
+import { OrderByPipe } from '../pipes/order-by/order-by';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { LayerFilterPipe } from '../pipes/layer-filter/layer-filter';
     LayerListPage,
     LayerPage,
     LayerFilterPipe,
-    BasemapPage
+    BasemapPage,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,

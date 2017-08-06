@@ -24,11 +24,12 @@ export class LayerListPage implements OnInit {
   layers: Array < any > = [];
   basemapLayerIds: Array < string > ;
   ngOnInit() {
-    this.navParams.data.map.layerIds.forEach(layerId => {
-      if (this.navParams.data.opLayers.indexOf(layerId) > -1) {
-        let layer = this.navParams.data.map.getLayer(layerId);
-        this.layers.push(layer);
-      }
+    this.navParams.data.opLayers.forEach(layerId => {
+      let layer = this.navParams.data.map.getLayer(layerId);
+        if (layer.arcgisProps) {
+          layer.title = layer.arcgisProps.title;
+        }
+        this.layers.push(layer);      
     });
   }
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtl: ModalController) {}
