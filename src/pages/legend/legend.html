@@ -19,7 +19,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let info of infos">
+    <ion-item *ngFor="let info of infos" text-wrap>
       <ion-label *ngIf="info.label">{{info.label}}</ion-label>
       <img item-start [src]="'data:image/png;base64,'+info.imageData"/>
     </ion-item>

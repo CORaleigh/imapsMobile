@@ -15,9 +15,10 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let account of accounts" (click)="goToInfo(account)">
+    <ion-item *ngFor="let account of accounts" (click)="goToInfo(account)" text-wrap>
       <h2>{{account.siteAddress}}</h2>
       <p>{{account.owner}}</p>
+      <p>{{account.pin}} {{account.pin_ext}}</p>      
     </ion-item>
   </ion-list>
 </ion-content>

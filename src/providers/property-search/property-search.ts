@@ -19,7 +19,7 @@ export class PropertySearchProvider {
   constructor(public http: Http) {}
   private apiUrl = 'https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/exts/PropertySOE';
   getAutocomplete(input: string, type: string): Observable < any > {
-    return this.http.get(this.apiUrl + '/AutoComplete?f=json&limit=5&input=' + input + '&type=' + type)
+    return this.http.get(this.apiUrl + '/AutoComplete?f=json&input=' + input + '&type=' + type)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 
