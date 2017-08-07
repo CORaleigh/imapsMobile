@@ -3,9 +3,7 @@ import {
 } from '@angular/core';
 import {
   Http,
-  Response,
-  Headers,
-  RequestOptions
+  Response
 } from '@angular/http';
 import {
   Observable

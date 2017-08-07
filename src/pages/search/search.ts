@@ -4,7 +4,6 @@ import {
 import {
   NavController,
   NavParams,
-  Tabs,
   Events
 } from 'ionic-angular';
 import {
@@ -13,9 +12,7 @@ import {
 import {
   FormControl
 } from '@angular/forms';
-import {
-  InfoPage
-} from '../info/info';
+
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html',

@@ -30,7 +30,7 @@ export class HomePage {
   resultsTab: any;
   tabParams: any = {};
   @ViewChild(Tabs) tabs: Tabs;
-  constructor(public navCtrl: NavController, private events: Events) {
+  constructor(public navCtrl: NavController, public events: Events) {
     this.searchTab = SearchPage;
     this.mapTab = MapPage;
     this.resultsTab = ResultsPage;

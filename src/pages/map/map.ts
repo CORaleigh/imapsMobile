@@ -7,7 +7,8 @@ import {
 import {
   NavController,
   Events,
-  NavParams
+  NavParams,
+  LoadingController
 } from 'ionic-angular';
 import {
   EsriLoaderService
@@ -45,7 +46,8 @@ export class MapPage implements OnInit {
   screenUtils: any;
   screenPoint: any;
   basemapGallery: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private esriLoader: EsriLoaderService, private events: Events, private propertySearch: PropertySearchProvider) {
+  loading: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private esriLoader: EsriLoaderService, private events: Events, private propertySearch: PropertySearchProvider, public loadingCtrl: LoadingController) {
     if (navParams.data.data) {
       this.pin = navParams.data.data.account.pin;
     }
@@ -81,6 +83,7 @@ export class MapPage implements OnInit {
           fields: results.Fields
         });
       }
+      this.loading.dismiss();
     });
   }
   findProperty(pin: string, findParameters, findTask, fillSymbol) {
@@ -114,6 +117,8 @@ export class MapPage implements OnInit {
         this.queryTask.execute(this.query).then(response => {
           if (response.features.length > 0) {
             this.findPropertyInfo(response.features[0].attributes.PIN_NUM);
+          } else {
+            this.loading.dismiss();
           }
         })
       }
@@ -122,9 +127,13 @@ export class MapPage implements OnInit {
   }
 
   mapPress(evt) {
+    this.loading = this.loadingCtrl.create({
+      dismissOnPageChange: true
+    });    
+    this.loading.present();
     this.screenPoint.x = evt.center.x;
     this.screenPoint.y = evt.center.y;
-    let point = this.screenUtils.toMapGeometry(this.map.extent, this.map.width, this.map.height, this.screenPoint);
+    let point = this.screenUtils.toMapGeometry(this.map.extent, window.innerWidth, window.innerHeight, this.screenPoint);
     if (this.agolPopupClickHandle) {
       this.agolPopupClickHandle.remove();
       this.agolPopupClickHandle = null;
@@ -133,6 +142,7 @@ export class MapPage implements OnInit {
   }
 
   ngOnInit() {
+
     this.esriLoader.load({
       url: 'https://js.arcgis.com/3.21/'
     }).then(() => {
@@ -153,6 +163,10 @@ export class MapPage implements OnInit {
         'esri/dijit/BasemapGallery'
       ]).then(([Map, arcgisUtils, Point, LayerList, Query, QueryTask, FindTask, FindParameters, SimpleFillSymbol, SpatialReference, LocateButton, screenUtils, ScreenPoint, BasemapGallery]) => {
         let page = this;
+        this.loading = this.loadingCtrl.create({
+          dismissOnPageChange: true
+        });
+        this.loading.present();        
         this.screenUtils = screenUtils;
         this.screenPoint = new ScreenPoint();
         this.spatialReference = new SpatialReference(3857);
@@ -203,6 +217,7 @@ export class MapPage implements OnInit {
             page.findProperty(page.pin, page.findParameters, page.find, page.fillSymbol);
           }
           page.loaded = true;
+          page.loading.dismiss();
           let timeout = null;
           var geoLocate = new LocateButton({
             map: page.map,

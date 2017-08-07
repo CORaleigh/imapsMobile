@@ -1,8 +1,5 @@
 import {
   Component,
-  ViewChild,
-  ElementRef,
-  forwardRef,
   OnInit
 } from '@angular/core';
 import {
@@ -13,9 +10,7 @@ import {
 import {
   LayerPage
 } from '../layer/layer';
-import {
-  LayerFilterPipe
-} from '../../pipes/layer-filter/layer-filter';
+
 @Component({
   selector: 'page-layer-list',
   templateUrl: 'layer-list.html'
