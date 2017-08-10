@@ -11,13 +11,6 @@ import {
   LegendPage
 } from '../legend/legend';
 
-/**
- * Generated class for the LayerPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
 @Component({
   selector: 'page-layer',
   templateUrl: 'layer.html',
@@ -55,8 +48,12 @@ export class LayerPage {
     layer.setVisibleLayers(layer.visibleLayers);
   }
 
-    showLegend(info, layer) {
-    let modal = this.modalCtl.create(LegendPage, {url: layer.url + '/legend', id: info.id});
+  showLegend(info, layer) {
+    let modal = this.modalCtl.create(LegendPage, {
+      url: layer.url + '/legend',
+      id: info.id
+    });
     modal.present();
   }
 }
+

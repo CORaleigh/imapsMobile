@@ -1,5 +1,6 @@
 <ion-header>
-  <ion-navbar   color="primary">
+  <ion-navbar color="primary">
+<button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>      
     <ion-title>iMAPS Mobile</ion-title>
     <ion-buttons end>
       <button class="layerBtn" [disabled]="!loaded" ion-button icon-only (click)="goToLayerList()">
@@ -7,10 +8,12 @@
       </button>
       <button [disabled]="!loaded" ion-button icon-only (click)="goToBasemap()">
         <ion-icon class="esri-icon-basemap"></ion-icon>
-      </button>      
-    </ion-buttons>      
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <div ion-fixed id="map" #map (press)="mapPress($event)" ><div id="LocateButton"></div></div>
+  <div ion-fixed id="map" #map (press)="mapPress($event)">
+    <div id="LocateButton"></div>
+  </div>
 </ion-content>

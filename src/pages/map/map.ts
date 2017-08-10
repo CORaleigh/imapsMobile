@@ -8,7 +8,9 @@ import {
   NavController,
   Events,
   NavParams,
-  LoadingController
+  LoadingController,
+  ModalController,
+  Platform
 } from 'ionic-angular';
 import {
   EsriLoaderService
@@ -47,28 +49,34 @@ export class MapPage implements OnInit {
   screenPoint: any;
   basemapGallery: any;
   loading: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private esriLoader: EsriLoaderService, private events: Events, private propertySearch: PropertySearchProvider, public loadingCtrl: LoadingController) {
+  isTablet: boolean;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private esriLoader: EsriLoaderService, private events: Events, private propertySearch: PropertySearchProvider, public loadingCtrl: LoadingController, public modalCtl: ModalController, public platform: Platform) {
+    this.isTablet = this.platform.is('tablet') || this.platform.is('core');
     if (navParams.data.data) {
       this.pin = navParams.data.data.account.pin;
     }
     events.subscribe('change-tab-info', (tab, data) => {
-      this.pin = navParams.data.data.account.pin;
-      if (this.map) {
-        this.findProperty(this.pin, this.findParameters, this.find, this.fillSymbol);
+      if (data) {
+        this.pin = data.account.pin;
+        if (this.map) {
+          this.findProperty(this.pin, this.findParameters, this.find, this.fillSymbol);
+        }
       }
     });
   }
   goToLayerList() {
-    this.navCtrl.push(LayerListPage, {
+    let modal = this.modalCtl.create(LayerListPage, {
       map: this.map,
       opLayers: this.opLayers
     });
+    modal.present();
   }
   goToBasemap() {
-    this.navCtrl.push(BasemapPage, {
-      map: this.map
+    let modal = this.modalCtl.create(BasemapPage, {
+      map: this.map,
     });
-  }  
+    modal.present();
+  }
   findPropertyInfo(pin: string) {
     this.propertySearch.getPropertyInfo(pin, 'pin').subscribe(results => {
       let accounts = results.Accounts;
@@ -111,16 +119,21 @@ export class MapPage implements OnInit {
     this.query.where = '1=1';
     this.queryTask.execute(this.query).then(response => {
       if (response.features.length > 0) {
-        this.findPropertyInfo(response.features[0].attributes.PIN_NUM);
+        this.pin = response.features[0].attributes.PIN_NUM;
+        this.findPropertyInfo(this.pin);
       } else {
         this.queryTask.url = 'https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer/1';
         this.queryTask.execute(this.query).then(response => {
           if (response.features.length > 0) {
-            this.findPropertyInfo(response.features[0].attributes.PIN_NUM);
+            this.pin = response.features[0].attributes.PIN_NUM;
+            this.findPropertyInfo(this.pin);
           } else {
             this.loading.dismiss();
           }
         })
+      }
+      if (this.isTablet) {
+        this.findProperty(this.pin, this.findParameters, this.find, this.fillSymbol);
       }
     }, error => {});
 
@@ -129,11 +142,13 @@ export class MapPage implements OnInit {
   mapPress(evt) {
     this.loading = this.loadingCtrl.create({
       dismissOnPageChange: true
-    });    
+    });
     this.loading.present();
-    this.screenPoint.x = evt.center.x;
-    this.screenPoint.y = evt.center.y;
-    let point = this.screenUtils.toMapGeometry(this.map.extent, window.innerWidth, window.innerHeight, this.screenPoint);
+    this.screenPoint.x = evt.srcEvent.layerX;
+    this.screenPoint.y = evt.srcEvent.layerY;
+    let width = evt.target.clientWidth;
+    let height = evt.target.clientHeight;
+    let point = this.screenUtils.toMapGeometry(this.map.extent, width, height, this.screenPoint);
     if (this.agolPopupClickHandle) {
       this.agolPopupClickHandle.remove();
       this.agolPopupClickHandle = null;
@@ -160,18 +175,21 @@ export class MapPage implements OnInit {
         'esri/dijit/LocateButton',
         "esri/geometry/screenUtils",
         "esri/geometry/ScreenPoint",
-        'esri/dijit/BasemapGallery'
-      ]).then(([Map, arcgisUtils, Point, LayerList, Query, QueryTask, FindTask, FindParameters, SimpleFillSymbol, SpatialReference, LocateButton, screenUtils, ScreenPoint, BasemapGallery]) => {
+        'esri/dijit/BasemapGallery',
+        "esri/config",
+        "esri/tasks/GeometryService"
+      ]).then(([Map, arcgisUtils, Point, LayerList, Query, QueryTask, FindTask, FindParameters, SimpleFillSymbol, SpatialReference, LocateButton, screenUtils, ScreenPoint, BasemapGallery, esriConfig, GeometryService]) => {
         let page = this;
+        esriConfig.defaults.geometryService = new GeometryService("https://maps.raleighnc.gov/arcgis/rest/services/Utilities/Geometry/GeometryServer");
         this.loading = this.loadingCtrl.create({
           dismissOnPageChange: true
         });
-        this.loading.present();        
+        this.loading.present();
         this.screenUtils = screenUtils;
         this.screenPoint = new ScreenPoint();
         this.spatialReference = new SpatialReference(3857);
         this.findParameters = new FindParameters();
-        
+
         this.find = new FindTask('https://maps.raleighnc.gov/arcgis/rest/services/Parcels/MapServer');
         this.fillSymbol = new SimpleFillSymbol({
           "color": [
@@ -224,24 +242,12 @@ export class MapPage implements OnInit {
             highlightLocation: true,
             useTracking: true,
             scale: 2000
-            }, "LocateButton"
-          );
+          }, "LocateButton");
           geoLocate.on('load', () => {
             console.log('geolocate loaded');
             geoLocate.show();
-          });          
+          });
           geoLocate.startup();
-
-          // page.map.on('mouse-down', (evt) => {
-          //   //connect editor
-          //   if (page.agolPopupClickHandle) {
-          //     page.agolPopupClickHandle.remove();
-          //     page.agolPopupClickHandle = null;
-          //   }
-          //   timeout = setTimeout(() => {
-          //     page.findPropertyPin(evt.mapPoint);
-          //   }, 1000);
-          // });
           page.map.on('mouse-up', (evt) => {
             if (!page.agolPopupClickHandle) {
               page.agolPopupClickHandle = page.map.on("click", page.agolPopupclickEventListener);

@@ -1,22 +1,14 @@
-<!--
-  Generated template for the LayerPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar  color="primary">
+  <ion-navbar color="primary">
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
       <span ion-text  showWhen="ios">Close</span>
-      <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+      <ion-icon name="md-close" showWhen="android, windows, core"></ion-icon>
     </button>
     </ion-buttons>
     <ion-title>{{layer.arcgisProps.title}}</ion-title>
   </ion-navbar>
 </ion-header>
-
-
 <ion-content padding>
   <ion-item>
     <ion-range min="0" max="100" [(ngModel)]="opacity" (ionChange)="opacityChanged($event)">
@@ -27,14 +19,13 @@
   <ion-list *ngIf="layer.layerInfos">
     <ion-item *ngFor="let info of layer.layerInfos" text-wrap>
       <ion-label><button no-lines ion-item (click)="showLegend(info, layer)">{{info.name}}</button></ion-label>
-
       <ion-toggle item-left checked="{{info.defaultVisibility}}" [(ngModel)]="info.defaultVisibility" (ngModelChange)="subLayerVisibilityChanged($event, info.id, layer)">></ion-toggle>
     </ion-item>
   </ion-list>
   <ion-list *ngIf="layer.renderer">
     <ion-item *ngFor="let info of layer.renderer.infos" text-wrap>
       <ion-label>{{info.value}}</ion-label>
-      <img item-start [src]="info.symbol.url" [alt]="info.value"/>
+      <img item-start [src]="info.symbol.url" [alt]="info.value" />
     </ion-item>
-  </ion-list>  
+  </ion-list>
 </ion-content>

@@ -1,0 +1,247 @@
+{ "url": "https://maps.raleighnc.gov/ArcGIS/rest/services/Services/ServicesIMaps/MapServer/query",
+  "categories": [{
+      "title": "Voting",
+      "services": [{
+          "title": "Precinct [PRECINCT] Polling Place",
+          "labels": "[POLL_PL];[ST_NUMBER] [ST_NAME:proper], [CITY:proper]",
+          "layerId": 1,
+          "url": ""
+        },
+        {
+          "title": "State Senate District [DISTRICT]",
+          "labels": "<a class='ps-link' href='[WEBSITE]' target='_blank'>[NAME] ([PARTY]) <span class='glyphicon glyphicon-new-window'></span></a>",
+          "layerId": 2
+        },
+        {
+          "title": "US House District [DISTRICT]",
+          "labels": "<a class='ps-link' href='[WEBSITE]' target='_blank'>[NAME] ([PARTY]) <span class='glyphicon glyphicon-new-window'></span></a>",
+          "layerId": 3
+        },
+        {
+          "title": "State House District [DISTRICT]",
+          "labels": "<a class='ps-link' href='[WEBSITE]' target='_blank'>[NAME] ([PARTY]) <span class='glyphicon glyphicon-new-window'></span></a>",
+          "layerId": 4
+        },
+        {
+          "title": "Wake County Commissioners District [DISTRICT]",
+          "labels": "<a class='ps-link' href='http://www.wakegov.com/commissioners/districts/Pages/district[DISTRICT].aspx' target='_blank'>[NAME] <span class='glyphicon glyphicon-new-window'></span></a>",
+          "layerId": 5
+        },
+        {
+          "title": "Board of Education District [DISTRICT]",
+          "labels": "<a class='ps-link' href='http://eboard.eboardsolutions.com/AboutUs/AboutUs.aspx?S=920&TID=1' target='_blank'>[NAME] <span class='glyphicon glyphicon-new-window'></span></a>",
+          "layerId": 6
+        },
+        {
+          "title": "Raleigh Council District [DISTRICT]",
+          "labels": "<a class='ps-link' href='http://www.raleighnc.gov/home/content/BoardsCommissions/Articles/CityCouncil.html' target='_blank'>[NAME] <span class='glyphicon glyphicon-new-window'></span></a>",
+          "layerId": 7
+        },
+        {
+          "title": "Cary Council District [DIST]",
+          "labels": "<a class='ps-link' href='http://www.townofcary.org/Departments/Town_Clerk_s_Office/Cary_Town_Council.htm' target='_blank'>[REP] <span class='glyphicon glyphicon-new-window'></span></a>",
+          "layerId": 8
+        }
+      ]
+    },
+    {
+      "title": "Planning",
+      "services": [{
+          "title": "Angier Zoning",
+          "labels": "[CLASS]",
+          "layerId": 11
+        },
+        {
+          "title": "Apex Zoning",
+          "labels": "[CLASS]",
+          "layerId": 12
+        },
+        {
+          "title": "Cary Zoning",
+          "labels": "[NAME]",
+          "layerId": 13
+        },
+        {
+          "title": "County Zoning",
+          "labels": "[CLASS]",
+          "layerId": 14
+        },
+        {
+          "title": "Fuquay-Varina Zoning",
+          "labels": "[CLASS]",
+          "layerId": 15
+        },
+        {
+          "title": "Garner Zoning",
+          "labels": "[CLASS]",
+          "layerId": 16
+        },
+        {
+          "title": "Holly Springs Zoning",
+          "labels": "[CLASS]",
+          "layerId": 17
+        },
+        {
+          "title": "Knightdale Zoning",
+          "labels": "[CLASS]",
+          "layerId": 18
+        },
+        {
+          "title": "Morrisville Zoning",
+          "labels": "[CLASS]",
+          "layerId": 19
+        },
+        {
+          "title": "Rolesville Zoning",
+          "labels": "[CLASS]",
+          "layerId": 20
+        },
+        {
+          "title": "Wake Forest Zoning",
+          "labels": "[CLASS]",
+          "layerId": 21
+        },
+        {
+          "title": "Wendell Zoning",
+          "labels": "[CLASS]",
+          "layerId": 22
+        },
+        {
+          "title": "Zebulon Zoning",
+          "labels": "[CLASS]",
+          "layerId": 23
+        },
+        {
+          "title": "City Limit",
+          "labels": "[LONG_NAME:proper]",
+          "layerId": 24
+        },
+        {
+          "title": "Planning Jurisdiction (ETJ)",
+          "labels": "[JURISDICTION:proper]",
+          "layerId": 25
+        },
+        {
+          "title": "Raleigh Annexation Year",
+          "labels": "[CASE_YEAR]",
+          "layerId": 27
+        },
+        {
+          "title": "Raleigh Future Landuse",
+          "labels": "[Land_Use]",
+          "layerId": 28
+        }, {
+          "title": "Subdivision",
+          "labels": "[NAME:proper]",
+          "layerId": 29
+        }, {
+          "title": "Development Plans",
+          "labels": "File #: [CASE];Name: [FILE_NAME:proper]",
+          "layerId": 30
+        }
+      ]
+    },
+    {
+      "title": "Solid Waste",
+      "services": [{
+        "title": "Collection Day",
+        "labels": "<a class='ps-link' href='[URL]' target='_blank'>[TRASH_COLLECTION_DAY] <span class='glyphicon glyphicon-new-window'></span></a>;<a class='ps-link' href='[HOLIDAY_URL]' target='_blank'>Holiday Schedule <span class='glyphicon glyphicon-new-window'></span></a>",
+        "layerId": 32
+      }, {
+        "title": "Trash Collection Route",
+        "labels": "[Trash Route]",
+        "layerId": 33
+      }, {
+        "title": "Yardwaste Collection Route",
+        "labels": "[Yardwaste Route]",
+        "layerId": 33
+      }, {
+        "title": "Bi-Weekly Recycling Collection",
+        "labels": "Route: [Recycling Route]",
+        "layerId": 33
+      }, {
+        "title": "Bi-Weekly Recycling Collection",
+        "labels": "Collection Day: [Collection Day];Recycling Week: <a class='ps-link' href='http://www.raleighnc.gov/content/SolidWaste/Documents/Calendars/[Collection Day][WEEK].pdf' target='_blank'>[WEEK] <span class='glyphicon glyphicon-new-window'></span></a>",
+        "layerId": 34
+      }]
+    }, {
+      "title": "Public Safety",
+      "services": [{
+          "title": "Sheriff Zone",
+          "labels": "[DISTRICT]",
+          "layerId": 36
+        },
+        {
+          "title": "Raleigh Police Beat",
+          "labels": "[Name]",
+          "layerId": 37
+        },
+        {
+          "title": "Garner Police Beat",
+          "labels": "[Name]",
+          "layerId": 38
+        },
+        {
+          "title": "Fire Insurance District",
+          "labels": "[District]",
+          "layerId": 39
+        },
+        {
+          "title": "County Fire Response District",
+          "labels": "[District]",
+          "layerId": 40
+        },
+        {
+          "title": "Raleigh Fire Response District",
+          "labels": "[District]",
+          "layerId": 41
+        },
+        {
+          "title": "EMS Franchise District",
+          "labels": "[District:proper]",
+          "layerId": 42
+        },
+        {
+          "title": "EMS Response District",
+          "labels": "[District:proper]",
+          "layerId": 43
+        }
+      ]
+    }, {
+      "title": "Environmental",
+      "services": [{
+          "title": "Floodplain",
+          "labels": "[ZONE_IMAPS]",
+          "layerId": 45
+        },
+        {
+          "title": "Soils",
+          "labels": "[NAME] - [DESCRIPTION]",
+          "layerId": 46
+        },
+        {
+          "title": "Hydrologic Unit",
+          "labels": "[HUC_CODE]",
+          "layerId": 47
+        },
+        {
+          "title": "Critical Wastershed",
+          "labels": "[PROPWS]",
+          "layerId": 48
+        },
+        {
+          "title": "Drainage Basin",
+          "labels": "[BASINS:proper]",
+          "layerId": 50
+        }
+      ]
+    }, {
+      "title": "City of Raleigh Assessments",
+      "services": [{
+        "title": "Assement Liens",
+        "labels": "Account #: <a class='ps-link' href='http://www.raleighnc.gov/home/content/Finance/Articles/OtherPaymentInformatio.html' target='_blank'>[Account] <span class='glyphicon glyphicon-new-window'></span></a>;Type: [Type];Status: [Status];Confirmed: [Confirmed Date];",
+        "layerId": 52
+      }]
+    }
+  ]
+}

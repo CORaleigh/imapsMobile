@@ -1,24 +1,9 @@
 import {
-  Component,
-  ViewChild
+  Component
 } from '@angular/core';
 import {
-  NavController,
-  Events,
-  Tabs
+  Platform
 } from 'ionic-angular';
-import {
-  SearchPage
-} from '../search/search';
-import {
-  MapPage
-} from '../map/map';
-import {
-  InfoPage
-} from '../info/info';
-import {
-  ResultsPage
-} from '../results/results';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -29,22 +14,8 @@ export class HomePage {
   infoTab: any;
   resultsTab: any;
   tabParams: any = {};
-  @ViewChild(Tabs) tabs: Tabs;
-  constructor(public navCtrl: NavController, public events: Events) {
-    this.searchTab = SearchPage;
-    this.mapTab = MapPage;
-    this.resultsTab = ResultsPage;
-    this.infoTab = InfoPage;
-    events.subscribe('change-tab', (tab, data) => {
-      this.tabParams.data = data;
-      this.tabs.getByIndex(tab).enabled = true;
-      this.tabs.select(tab);
-    });
-    events.subscribe('change-tab-info', (tab, data) => {
-      this.tabParams.data = data;
-      this.tabs.getByIndex(tab).enabled = true;
-      this.tabs.select(tab);
-    });
+  isTablet: boolean;
+  constructor(public platform: Platform) {
+    this.isTablet = this.platform.is('tablet') || this.platform.is('core');
   }
-
 }

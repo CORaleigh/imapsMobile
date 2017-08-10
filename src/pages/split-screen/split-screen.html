@@ -1,0 +1,10 @@
+<ion-split-pane> 
+  <ion-menu [content]="someContent" id="sideMenu" swipeEnabled="false">
+    <ion-tabs color="primary">
+      <ion-tab tabIcon="search" [root]="searchTab"></ion-tab>
+      <ion-tab enabled="false" tabIcon="list" [root]="resultsTab" [rootParams]="tabParams"></ion-tab>
+      <ion-tab enabled="false" tabIcon="information-circle" [root]="infoTab" [rootParams]="tabParams"></ion-tab>
+    </ion-tabs>
+  </ion-menu>
+  <ion-nav [root]="mapTab" #someContent main></ion-nav>
+</ion-split-pane>

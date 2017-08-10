@@ -21,7 +21,11 @@ import { LegendPage } from '../pages/legend/legend';
 import { BasemapPage } from '../pages/basemap/basemap';
 import { LayerFilterPipe } from '../pipes/layer-filter/layer-filter';
 import { OrderByPipe } from '../pipes/order-by/order-by';
-
+import { InfoPopoverPage } from '../pages/info-popover/info-popover';
+import { AddressesPage } from '../pages/addresses/addresses';
+import { ServicesProvider } from '../providers/services/services';
+import { SplitScreenPage } from '../pages/split-screen/split-screen';
+import { PhoneScreenPage } from '../pages/phone-screen/phone-screen';
 @NgModule({
   declarations: [
     MyApp,
@@ -35,7 +39,11 @@ import { OrderByPipe } from '../pipes/order-by/order-by';
     LayerFilterPipe,
     BasemapPage,
     OrderByPipe,
-    LegendPage
+    LegendPage,
+    InfoPopoverPage,
+    AddressesPage,
+    SplitScreenPage,
+    PhoneScreenPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +61,11 @@ import { OrderByPipe } from '../pipes/order-by/order-by';
     LayerListPage,
     LayerPage,
     BasemapPage,
-    LegendPage
+    LegendPage,
+    InfoPopoverPage,
+    AddressesPage,
+    SplitScreenPage,
+    PhoneScreenPage
   ],
   providers: [
     StatusBar,
@@ -61,7 +73,8 @@ import { OrderByPipe } from '../pipes/order-by/order-by';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PropertySearchProvider,
     EsriLoaderService,
-    Geolocation
+    Geolocation,
+    ServicesProvider
   ]
 })
 export class AppModule {}

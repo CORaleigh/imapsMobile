@@ -4,7 +4,8 @@ import {
 import {
   NavController,
   NavParams,
-  Events
+  Events,
+  Platform
 } from 'ionic-angular';
 import {
   PropertySearchProvider
@@ -26,8 +27,17 @@ export class SearchPage {
   owners: any = [];
   accounts: any = [];
   streets: any = [];
-  numresults: any = {address: 5, pin: 5, owner: 5, reid: 5, 'street name': 5};
-  constructor(public navCtrl: NavController, public navParams: NavParams, private propertySearch: PropertySearchProvider, private events: Events) {}
+  numresults: any = {
+    address: 5,
+    pin: 5,
+    owner: 5,
+    reid: 5,
+    'street name': 5
+  };
+  isTablet: boolean;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private propertySearch: PropertySearchProvider, private events: Events, public platform: Platform) {
+    this.isTablet = this.platform.is('tablet') || this.platform.is('core');
+  }
   ngOnInit() {
     this.searchControl.valueChanges
       .debounceTime(300)
@@ -40,25 +50,25 @@ export class SearchPage {
           this.reids = [];
           this.owners = [];
           this.accounts = [];
-          this.streets = [];          
+          this.streets = [];
         }
       });
   }
   getData(value) {
     this.propertySearch.getAutocomplete(value, 'address').subscribe(results => {
-      this.addresses = results.Results;//.slice(0, 5)
+      this.addresses = results.Results; //.slice(0, 5)
     })
     this.propertySearch.getAutocomplete(value, 'owner').subscribe(results => {
-      this.owners = results.Results;//.slice(0, 5);
+      this.owners = results.Results; //.slice(0, 5);
     })
     this.propertySearch.getAutocomplete(value, 'pin').subscribe(results => {
-      this.pins = results.Results;//.slice(0, 5)
+      this.pins = results.Results; //.slice(0, 5)
     })
     this.propertySearch.getAutocomplete(value, 'reid').subscribe(results => {
-      this.reids = results.Results;//.slice(0, 5)
+      this.reids = results.Results; //.slice(0, 5)
     })
     this.propertySearch.getAutocomplete(value, 'street name').subscribe(results => {
-      this.streets = results.Results;//.slice(0, 5)
+      this.streets = results.Results; //.slice(0, 5)
     })
   }
   ionViewDidLoad() {
@@ -83,7 +93,7 @@ export class SearchPage {
       this.reids = [];
       this.owners = [];
       this.accounts = [];
-      this.streets = [];          
+      this.streets = [];
     });
   };
   showMore(type) {
@@ -91,5 +101,6 @@ export class SearchPage {
   }
   showLess(type) {
     this.numresults[type] = 5;
-  }  
+  }
 }
+

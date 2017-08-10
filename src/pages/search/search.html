@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-navbar  color="primary">
+  <ion-navbar color="primary">
     <ion-title>
-      iMAPS Mobile
+      {{(isTablet) ? 'Search': 'iMAPS Mobile'}}
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content padding>
   <ion-item>
     <ion-label floating>Address, PIN, REID, Owner, Street...</ion-label>
     <ion-input [formControl]="searchControl" type="text" value="" [ngModel]="searchInput" type="text" clearInput></ion-input>
@@ -14,26 +14,28 @@
   <ion-list>
     <div *ngIf="addresses.length > 0">
       <ion-list-header>
-        Address 
+        Address
         <button *ngIf="numresults['address'] === 5" ion-button small clear item-right (click)="showMore('address')">Show More</button>
-        <button  *ngIf="numresults['address'] > 5" ion-button small clear item-right (click)="showLess('address')">Show Less</button>
-        
+        <button *ngIf="numresults['address'] > 5" ion-button small clear item-right (click)="showLess('address')">Show Less</button>
+
       </ion-list-header>
-      <ion-item *ngFor="let address of addresses | slice:0:numresults['address']; let i=index" (click)="searchProperty(address, 'address')" text-wrap>{{address}}</ion-item>
+      <ion-item *ngFor="let address of addresses | slice:0:numresults['address']; let i=index" (click)="searchProperty(address, 'address')"
+        text-wrap>{{address}}</ion-item>
     </div>
     <div *ngIf="owners.length > 0">
       <ion-list-header>
         Owner
         <button *ngIf="numresults['owner'] === 5" ion-button small clear item-right (click)="showMore('owner')">Show More</button>
-        <button  *ngIf="numresults['owner'] > 5" ion-button small clear item-right (click)="showLess('owner')">Show Less</button>        
+        <button *ngIf="numresults['owner'] > 5" ion-button small clear item-right (click)="showLess('owner')">Show Less</button>
       </ion-list-header>
-      <ion-item *ngFor="let owner of owners | slice:0:numresults['owner']; let i=index" (click)="searchProperty(owner, 'owner')" text-wrap>{{owner}}</ion-item>
+      <ion-item *ngFor="let owner of owners | slice:0:numresults['owner']; let i=index" (click)="searchProperty(owner, 'owner')"
+        text-wrap>{{owner}}</ion-item>
     </div>
     <div *ngIf="pins.length > 0">
       <ion-list-header>
         PIN
         <button *ngIf="numresults['pin'] === 5" ion-button small clear item-right (click)="showMore('pin')">Show More</button>
-        <button  *ngIf="numresults['pin'] > 5" ion-button small clear item-right (click)="showLess('pin')">Show Less</button>        
+        <button *ngIf="numresults['pin'] > 5" ion-button small clear item-right (click)="showLess('pin')">Show Less</button>
       </ion-list-header>
       <ion-item *ngFor="let pin of pins | slice:0:numresults['pin']; let i=index" (click)="searchProperty(pin, 'pin')" text-wrap>{{pin}}</ion-item>
     </div>
@@ -41,7 +43,7 @@
       <ion-list-header>
         REID
         <button *ngIf="numresults['reid'] === 5" ion-button small clear item-right (click)="showMore('address')">Show More</button>
-        <button  *ngIf="numresults['reid'] > 5" ion-button small clear item-right (click)="showLess('reid')">Show Less</button>        
+        <button *ngIf="numresults['reid'] > 5" ion-button small clear item-right (click)="showLess('reid')">Show Less</button>
       </ion-list-header>
       <ion-item *ngFor="let reid of reids | slice:0:numresults['reid']; let i=index" (click)="searchProperty(reid, 'reid')" text-wrap>{{reid}}</ion-item>
     </div>
@@ -49,9 +51,10 @@
       <ion-list-header>
         Street
         <button *ngIf="numresults['street name'] === 5" ion-button small clear item-right (click)="showMore('street name')">Show More</button>
-        <button  *ngIf="numresults['street name'] > 5" ion-button small clear item-right (click)="showLess('street name')">Show Less</button>        
+        <button *ngIf="numresults['street name'] > 5" ion-button small clear item-right (click)="showLess('street name')">Show Less</button>
       </ion-list-header>
-      <ion-item *ngFor="let street of streets | slice:0:numresults['street name']; let i=index" (click)="searchProperty(street, 'street name')" text-wrap>{{street}}</ion-item>
+      <ion-item *ngFor="let street of streets | slice:0:numresults['street name']; let i=index" (click)="searchProperty(street, 'street name')"
+        text-wrap>{{street}}</ion-item>
     </div>
   </ion-list>
 </ion-content>

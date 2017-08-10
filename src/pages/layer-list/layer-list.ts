@@ -5,7 +5,8 @@ import {
 import {
   NavController,
   NavParams,
-  ModalController
+  ModalController,
+  ViewController
 } from 'ionic-angular';
 import {
   LayerPage
@@ -21,13 +22,13 @@ export class LayerListPage implements OnInit {
   ngOnInit() {
     this.navParams.data.opLayers.forEach(layerId => {
       let layer = this.navParams.data.map.getLayer(layerId);
-        if (layer.arcgisProps) {
-          layer.title = layer.arcgisProps.title;
-        }
-        this.layers.push(layer);      
+      if (layer.arcgisProps) {
+        layer.title = layer.arcgisProps.title;
+      }
+      this.layers.push(layer);
     });
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtl: ModalController) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtl: ModalController, public viewCtrl: ViewController) {}
   ionViewDidLoad() {
     console.log('ionViewDidLoad LayerListPage');
   }
@@ -54,5 +55,8 @@ export class LayerListPage implements OnInit {
   showLayerInfo(layer) {
     let modal = this.modalCtl.create(LayerPage, layer);
     modal.present();
+  }
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 }
