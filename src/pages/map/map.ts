@@ -221,7 +221,9 @@ export class MapPage implements OnInit {
         }
         arcgisUtils.createMap("ae9528a8e6e64994b4596072dcc476b8", this.mapEl.nativeElement, {
           mapOptions: {
-            slider: false
+            slider: false,
+            minZoom: 11,
+            zoom: 11
           }
         }).then(function (response) {
           console.log(response);
